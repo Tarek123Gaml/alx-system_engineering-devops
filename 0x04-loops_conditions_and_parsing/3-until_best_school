@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-#that displays Best School 10 times
-i=0
-until [ $i -ge 10 ]; do
-    echo "Holberton School"
-    let i+=1
+#print 10times
+counter=0
+until [ $counter -ge 10 ]
+do
+	echo "Best School"
+	((counter++))
 done
