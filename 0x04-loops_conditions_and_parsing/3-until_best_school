@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 #that displays Best School 10 times
-#!/usr/bin/env bash
-# This script displays Holberton School 10 times using until loop
 i=0
 until [ $i -ge 10 ]; do
     echo "Holberton School"
