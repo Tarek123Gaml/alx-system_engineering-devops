@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-#the 9th iteration, displays Best School and then Hi
+#the 9th iteration
+#displays Best School and then Hi
 i=1
 while [[ $i -le 10 ]]; do
 	echo "Best School"
