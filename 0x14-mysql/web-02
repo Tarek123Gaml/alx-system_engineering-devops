@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# log in web-02 server
+
+eval $("ssh-agent")
+
+ssh-add ~/.ssh/school
+
+ssh ubuntu@54.237.99.70
