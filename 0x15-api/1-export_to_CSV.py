@@ -1,36 +1,24 @@
 #!/usr/bin/python3
-"""A python script that returns information about an
-employees TODO list progress.
-"""
+"""Exports to-do list information for a given employee ID to CSV format."""
+
 import csv
-import json
 import requests
 import sys
 
 
-def get_todo_info():
-    """A function that gets the todo information for a particular user id"""
-    user_id = sys.argv[1]
-    # GET /user/<id> resource for user info
-    r = requests.get('https://jsonplaceholder.typicode.com/users?id={}'
-                     .format(user_id))
-    user = json.loads(r.text)
-    user_name = user[0].get('username')
-
-    # GET /user/<id>/todos for todo info
-    r = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'
-                     .format(user_id))
-    todos = json.loads(r.text)
-
-    with open('{}.csv'.format(user_id),
-              'w', newline='', encoding='utf-8') as fp:
-        taskwriter = csv.writer(fp, quoting=csv.QUOTE_ALL)
-        for task in todos:
-            taskwriter.writerow(["{}".format(user_id),
-                                 "{}".format(user_name),
-                                 "{}".format(task.get('completed')),
-                                 "{}".format(task.get('title'))])
-
-
 if __name__ == "__main__":
-    get_todo_info()
+    user_id = sys.argv[1]
+
+    url = "https://jsonplaceholder.typicode.com/"
+
+    user = requests.get(url + "users/{}".format(user_id)).json()
+
+    username = user.get("username")
+
+    todos = requests.get(url + "todos", params={"userId": user_id}).json()
+
+    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        [writer.writerow(
+            [user_id, username, t.get("completed"), t.get("title")]
+         ) for t in todos]
